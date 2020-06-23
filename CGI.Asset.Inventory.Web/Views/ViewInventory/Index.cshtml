@@ -1,0 +1,214 @@
+﻿@model AssetViewModel
+@{
+    ViewData["Title"] = "Take Inventory";
+}
+<div class="row">
+    <div class="form-group row " style="display:inline-block">
+        <form id="takeInventoryForm" name="takeInventoryForm" class="needs-validation" novalidate>
+            <div class="form-group row ">
+                <div class="col-form-label form-row-padding">
+                    <label for="item">Asset Tag:</label>
+                    <input  id="assetTag" class="form-control"  type="number" asp-for="AssetDTO.AssetTag" placeholder="2134" value=""  />
+                    <div class="invalid-feedback">
+                        invalid Asset Tag
+                    </div>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+
+                <div class="col-form-label form-row-padding">
+                    <label for="Inventory Owner">Inventory Owner:</label>
+                    <input id="inventoryOwner" class="form-control" type="text" asp-for="AssetDTO.InventoryOwner" placeholder="Arthur Dent" value="" />
+                    <div class="invalid-feedback">
+                        please add valid inventory owner text
+                    </div>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+
+                <div class="col-form-label form-row-padding">
+                    <label for="Location">Location:</label>
+                    <select id="locationSelect" class="form-control" asp-for="AssetDTO.LocationKey" asp-items="@new SelectList(Model.LocationDTOs, nameof(Model.LocationDTO.LocationKey), nameof(Model.LocationDTO.LocationName))" style="width:180px;"></select>
+                </div>
+
+                <div class="col-form-label form-row-padding">
+                    <label for="clientsite">Client Site:</label>
+                    <select id="clientSiteSelect" class="form-control" asp-for="AssetDTO.ClientSiteKey" asp-items="@new SelectList(Model.ClientSiteDTOs, nameof(Model.ClintSiteDTO.ClientSiteKey), nameof(Model.ClintSiteDTO.ClientSiteName))" style="width:180px"></select>
+                </div>
+            </div>
+            <button id="searchButtonTest" type="button" >Search</button>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12" id="renderPartialDiv">
+        <partial name="_StartPage">
+    </div>
+</div>
+
+<div id="renderModifyAssetModalDiv">
+</div>
+
+<div id="renderMessageModalDiv">
+
+</div>
+
+<div class="modal" id="addItemModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Add Item</h4>
+                <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form id="addAssetForm" class="needs-validation" novalidate>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col " style="display:inline">
+                            <label for="assetTagModalInput">AssetTag:</label>
+                        </div>
+                        <div class="col  col-form-label" style="display:inline">
+                            <input class="form-control" id="assetTagModalInput" type="number" asp-for="AssetDTO.AssetTag" required />
+                            <div class="invalid-feedback">
+                                 Please enter an asset tag
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="Product">Product:</label>
+                        </div>
+                        <div class="col">
+                            <select class="form-control" id="productSelectModalSelect" asp-for="AssetDTO.ProductKey" asp-items="@new SelectList(Model.ProductDTOs, nameof(Model.ProductDTO.ProductKey), nameof(Model.ProductDTO.ProductName))">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="Manufacturer">Manufacturer:</label>
+                        </div>
+                        <div class="col">
+                            <select class="form-control" id="manufacturerSelectModalSelect" asp-for="AssetDTO.ManufacturerKey" asp-items="@new SelectList(Model.ManufacturerDTOs, nameof(Model.ManufacturerDTO.ManufacturerKey), nameof(Model.ManufacturerDTO.ManufacturerName))">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="Model">Model:</label>
+                        </div>
+                        <div class="col">
+                            <select class="form-control" id="modelSelectModalSelect" asp-for="AssetDTO.ModelKey" asp-items="@new SelectList(Model.ModelDTOs, nameof(Model.ModelDTO.ModelKey), nameof(Model.ModelDTO.ModelName))">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="Location">Location:</label>
+                        </div>
+                        <div class="col">
+                            <select class="form-control" id="locationSelectModalSelect" asp-for="AssetDTO.LocationKey" asp-items="@new SelectList(Model.LocationDTOs, nameof(Model.LocationDTO.LocationKey), nameof(Model.LocationDTO.LocationName))">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="display:inline">
+                            <label for="clientsite">Client Site:</label>
+                        </div>
+                        <div class="col">
+                            <select class="form-control" id="clientSiteSelectModalSelect" asp-for="AssetDTO.ClientSiteKey" asp-items="@new SelectList(Model.ClientSiteDTOs, nameof(Model.ClintSiteDTO.ClientSiteKey), nameof(Model.ClintSiteDTO.ClientSiteName))">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="SerialNumber">Serial Number:</label>
+                        </div>
+                        <div class="col">
+                            <input class="form-control" id="serialNumberModalInput" type="number" asp-for="AssetDTO.SerialNumber" required />
+                            <div class="invalid-feedback">
+                                Please enter a serial number
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="Item Name">Item Name:</label>
+                        </div>
+                        <div class="col">
+                            <input class="form-control"  id="itemNameModalInput" type="text" asp-for="AssetDTO.ItemName" required />
+                            <div class="invalid-feedback">
+                                Please enter an item name
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="PurchaseDate">Purchase Date:</label>
+                        </div>
+                        <div class="col">
+                            <input class="form-control" id="purchaseDateModalInput" type="datetime-local" asp-for="AssetDTO.PurchaseDate" required />
+                            <div class="invalid-feedback">
+                                Please enter a puchase date
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="display:inline">
+                            <label for="Inventory Owner">Inventory Owner:</label>
+                        </div>
+                        <div class="col" style="display:inline">
+                            <input class="form-control" id="inventoryOwnerModalInput" type="text" asp-for="AssetDTO.InventoryOwner" required />
+                            <div class="invalid-feedback">
+                                Please enter an inventory owner
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="inventoried By">Inventoried By:</label>
+                        </div>
+                        <div class="col">
+                            <input class="form-control" id="inventoriedByModalInput" type="text" asp-for="AssetDTO.InventoriedBy" required />
+                            <div class="invalid-feedback">
+                                Please enter who inventoried asset
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <Label for=" InventoryDate">Inventory Date:</Label>
+                        </div>
+                        <div class="col">
+                            <input class="form-control" id="inventoriedDateModalInput" type="datetime-local" asp-for="AssetDTO.InventoryDate" required />
+                            <div class="invalid-feedback">
+                                Please enter inventoried date
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="is Disposed">Is Disposed:</label>
+                        </div>
+                        <div class="col">
+                            <input class="form-control" id="isDisposedModalInput" type="checkbox" asp-for="AssetDTO.isDisposed" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button id="addItemSubmitButton" type="submit">submit</button>
+                    <button data-dismiss="modal">close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/Scripts.js"></script>
+    <script type="text/javascript">
+    </script>
+}
+

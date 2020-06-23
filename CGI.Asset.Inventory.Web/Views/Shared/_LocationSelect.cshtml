@@ -1,0 +1,10 @@
+﻿@model AssetViewModel
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+    <div class="col-form-label">
+        <label for="Location">Location:</label>
+        <select id="locationSelect" asp-for="AssetDTO.LocationKey" asp-items="@new SelectList(Model.LocationDTOs, nameof(Model.LocationDTO.LocationKey), nameof(Model.LocationDTO.LocationName))"  style="width:180px;">
+        </select>
+    </div>

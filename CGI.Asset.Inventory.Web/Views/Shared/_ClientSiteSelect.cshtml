@@ -1,0 +1,10 @@
+﻿@model AssetViewModel
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+    <div class="col-form-label ">
+        <label for="clientsite">Client Site:</label>
+        <select id="clientSiteSelect"  asp-for="AssetDTO.ClientSiteKey" asp-items="@new SelectList(Model.ClientSiteDTOs, nameof(Model.ClintSiteDTO.ClientSiteKey), nameof(Model.ClintSiteDTO.ClientSiteName))" style="width:180px">
+        </select>
+    </div>
