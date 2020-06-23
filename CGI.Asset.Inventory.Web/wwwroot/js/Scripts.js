@@ -86,20 +86,25 @@ $(document).on('click', '#modifyButton', function () {
 });
 
 $(document).on('click', '#addItemSubmitButton', function () {
+    let addItemModal = $('#addItemModal');
     let addItemForm = $('#addAssetForm');
-    $.ajax({
-        url: 'https://localhost:44388/viewInventory/addItem',
-        data: addItemForm.serialize(),
-        type: 'POST',
-        success: function (response) {
-            if (response.success) {
-                alert(response.responseText);
+    if (validateModals('addAssetForm')) {
+        $.ajax({
+            url: 'https://localhost:44388/viewInventory/addItem',
+            data: addItemForm.serialize(),
+            type: 'POST',
+            success: function (response) {
+                if (response.success) {
+                    alert(response.responseText);
+                    addItemModal.modal('toggle');
+                    location.reload();
+                }
+                else {
+                    alert(response.responseText);
+                }
             }
-            else {
-                alert(response.responseText);
-            }
-        }
-    });
+        });
+    }
 });
 
 
@@ -143,6 +148,7 @@ function validateSearchForm() {
 };
 
 function validateModals(form) {
+    console.log(form);
     var assetTag = document.forms[form]['assetTagModalInput'];
     var serialNumber = document.forms[form]['serialNumberModalInput'];
     var itemName = document.forms[form]['itemNameModalInput'];

@@ -71,7 +71,10 @@
                         <div class="col  col-form-label" style="display:inline">
                             <input class="form-control" id="assetTagModalInput" type="number" asp-for="AssetDTO.AssetTag" required />
                             <div class="invalid-feedback">
-                                 Please enter an asset tag
+                                invalid Asset Tag
+                            </div>
+                            <div class="valid-feedback">
+                                Looks Good!
                             </div>
                         </div>
                     </div>
@@ -112,7 +115,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col" style="display:inline">
+                        <div class="col">
                             <label for="clientsite">Client Site:</label>
                         </div>
                         <div class="col">
@@ -127,7 +130,10 @@
                         <div class="col">
                             <input class="form-control" id="serialNumberModalInput" type="number" asp-for="AssetDTO.SerialNumber" required />
                             <div class="invalid-feedback">
-                                Please enter a serial number
+                                invalid Serial Number
+                            </div>
+                            <div class="valid-feedback">
+                                Looks Good!
                             </div>
                         </div>
                     </div>
@@ -136,9 +142,12 @@
                             <label for="Item Name">Item Name:</label>
                         </div>
                         <div class="col">
-                            <input class="form-control"  id="itemNameModalInput" type="text" asp-for="AssetDTO.ItemName" required />
+                            <input class="form-control" id="itemNameModalInput" type="text" asp-for="AssetDTO.ItemName" required />
                             <div class="invalid-feedback">
-                                Please enter an item name
+                                invalid Item Name
+                            </div>
+                            <div class="valid-feedback">
+                                Looks Good!
                             </div>
                         </div>
                     </div>
@@ -149,18 +158,24 @@
                         <div class="col">
                             <input class="form-control" id="purchaseDateModalInput" type="datetime-local" asp-for="AssetDTO.PurchaseDate" required />
                             <div class="invalid-feedback">
-                                Please enter a puchase date
+                                invalid Purchase Date
+                            </div>
+                            <div class="valid-feedback">
+                                Looks Good!
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col" style="display:inline">
+                        <div class="col">
                             <label for="Inventory Owner">Inventory Owner:</label>
                         </div>
-                        <div class="col" style="display:inline">
+                        <div class="col">
                             <input class="form-control" id="inventoryOwnerModalInput" type="text" asp-for="AssetDTO.InventoryOwner" required />
                             <div class="invalid-feedback">
-                                Please enter an inventory owner
+                                invalid Inventory Owner
+                            </div>
+                            <div class="valid-feedback">
+                                Looks Good!
                             </div>
                         </div>
                     </div>
@@ -171,7 +186,10 @@
                         <div class="col">
                             <input class="form-control" id="inventoriedByModalInput" type="text" asp-for="AssetDTO.InventoriedBy" required />
                             <div class="invalid-feedback">
-                                Please enter who inventoried asset
+                                invalid Inventoried By
+                            </div>
+                            <div class="valid-feedback">
+                                Looks Good!
                             </div>
                         </div>
                     </div>
@@ -182,7 +200,10 @@
                         <div class="col">
                             <input class="form-control" id="inventoriedDateModalInput" type="datetime-local" asp-for="AssetDTO.InventoryDate" required />
                             <div class="invalid-feedback">
-                                Please enter inventoried date
+                                invalid Inventory Date
+                            </div>
+                            <div class="valid-feedback">
+                                Looks Good!
                             </div>
                         </div>
                     </div>
@@ -194,10 +215,9 @@
                             <input class="form-control" id="isDisposedModalInput" type="checkbox" asp-for="AssetDTO.isDisposed" />
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
-                    <button id="addItemSubmitButton" type="submit">submit</button>
+                    <button id="addItemSubmitButton" type="button">submit</button>
                     <button data-dismiss="modal">close</button>
                 </div>
             </form>
