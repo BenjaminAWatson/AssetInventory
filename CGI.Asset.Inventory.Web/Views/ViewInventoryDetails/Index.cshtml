@@ -43,9 +43,9 @@
                     <label for="clientsite">Client Site:</label>
                     <select id="clientSiteSelect" class="form-control" asp-for="AssetDTO.ClientSiteKey" asp-items="@new SelectList(Model.ClientSiteDTOs, nameof(Model.ClintSiteDTO.ClientSiteKey), nameof(Model.ClintSiteDTO.ClientSiteName))" style="width:180px"></select>
                 </div>
-
             </div>
             <button class="btn-primary rounded" id="searchButton" type="button">Search</button>
+            <button class="btn-danger rounded" id="cancelButton" type="button">Close</button>
         </form>
         
     </div>

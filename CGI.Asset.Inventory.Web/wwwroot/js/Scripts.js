@@ -165,7 +165,9 @@ function validateModals(form) {
         else if ((element.type === 'text') && !(isNaN(element.value))) {
             element.classList.add('is-invalid');
         }
-
+        else if (element.type === 'datetime-local' && element.value < '1900-01-01T01:00:00.000'){
+            element.classList.add('is-invalid');
+        }
         else {
             element.classList.remove('is-invalid');
             element.classList.add('is-valid')

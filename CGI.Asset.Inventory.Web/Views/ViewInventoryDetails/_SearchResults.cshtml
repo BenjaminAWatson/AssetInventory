@@ -42,7 +42,7 @@
                 "info": false,
                 "lengthMenu": false,
                 "lengthChange": false,
-                "pageLength": 5,
+                "pageLength": 25,
                 "order": [],
                 "dom": 't<"bottom"p>',
                 "searching": false,
@@ -80,9 +80,6 @@
                     table.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected');
                 }
-
-                //console.log(data);
-                //console.log(data.assetTag);
             });
             $('#renderPartialDiv').on('click','.assetTag',function () {
                 $.ajax({
