@@ -356,8 +356,6 @@ namespace CGI.Asset.Inventory.Service
         {
             var searchResults = GetAssetDTOs(sent);
             var count = GetNumOfAssets(searchResults);
-            var ordered = GetAssetsOrdered(searchResults, sent);
-            //var data = DataTableHelpers.GetPagedWithoutOrder(ordered, sent);
             var data = searchResults;
             var model = new DataTableReturned(sent)
             {
@@ -376,53 +374,6 @@ namespace CGI.Asset.Inventory.Service
                 count++;
             }
             return count;
-        }
-
-        public IOrderedEnumerable<AssetDTO> GetAssetsOrdered(IEnumerable<AssetDTO> assetDTOs, DataTableSent sent)
-        {
-            var isASC = DataTableHelpers.isASC(sent);
-            try 
-            {
-                switch (sent.order.FirstOrDefault().column)
-                {
-                    case 0:
-                        if (isASC)
-                            return assetDTOs.OrderBy(c => c.AssetTag);
-                        else
-                            return assetDTOs.OrderBy(c => c.AssetTag);
-                    case 1:
-                        if (isASC)
-                            return assetDTOs.OrderBy(c => c.Product);
-                        else
-                            return assetDTOs.OrderBy(c => c.Product);
-                    case 2:
-                        if (isASC)
-                            return assetDTOs.OrderBy(c => c.Manufacturer);
-                        else
-                            return assetDTOs.OrderBy(c => c.Manufacturer);
-                    case 3:
-                        if (isASC)
-                            return assetDTOs.OrderBy(c => c.Model);
-                        else
-                            return assetDTOs.OrderBy(c => c.Model);
-                    case 4:
-                        if (isASC)
-                            return assetDTOs.OrderBy(c => c.SerialNumber);
-                        else
-                            return assetDTOs.OrderBy(c => c.SerialNumber);
-                    case 5:
-                        if (isASC)
-                            return assetDTOs.OrderBy(c => c.ItemName);
-                        else
-                            return assetDTOs.OrderBy(c => c.ItemName);
-                    default:
-                        return assetDTOs.OrderBy(c => c.AssetTag);
-                }
-            }
-            catch (Exception)
-            {
-                return assetDTOs.OrderBy(c => c.AssetTag);
-            }
         }
     }
 }
