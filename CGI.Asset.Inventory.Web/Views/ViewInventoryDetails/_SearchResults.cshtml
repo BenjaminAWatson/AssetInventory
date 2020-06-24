@@ -30,7 +30,8 @@
 
 
 <script type="text/javascript">
-        $(document).ready(function () {
+    $(document).ready(function () {
+            var keywordSearch = $('#keywordSearch').val();
             var assetTag = $('#assetTag').val();
             var inventoryOwner = $('#inventoryOwner').val();
             var locationKey = $('#locationSelect').val();
@@ -46,9 +47,10 @@
                 "dom": 't<"bottom"p>',
                 "searching": false,
                 "ajax": {
-                    url: "@Url.Action("GetResultData", "ViewInventory")",
+                    url: "@Url.Action("GetResultData", "ViewInventoryDetails")",
                     type: "POST",
                     data: function (d) {
+                        d.keywordSearch = keywordSearch;
                         d.assetTag = assetTag;
                         d.inventoryOwner = inventoryOwner;
                         d.locationKey = locationKey;

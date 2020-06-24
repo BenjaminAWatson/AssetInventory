@@ -91,7 +91,6 @@ namespace CGI.Asset.Inventory.Web.Controllers
         public JsonResult GetResultData(ResultsDataTableSent sent)
         
         {
-            var results = _service.GetAssetDTOs(sent);
             var model = _service.GetAssetsPaginated(sent);
             return Json(model);
         }

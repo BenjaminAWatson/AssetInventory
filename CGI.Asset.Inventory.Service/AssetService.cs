@@ -82,26 +82,66 @@ namespace CGI.Asset.Inventory.Service
 
         public IEnumerable<AssetDTO> GetAssetDTOs(ResultsDataTableSent sent)
         {
-            var result = from a in db.Asset
-                         .Where(a => a.IsDisposed == false && (a.AssetKey.ToString().Contains(sent.AssetTag.ToString()) || a.InventoryOwner.Contains(sent.InventoryOwner))  && (a.ClientSiteKey.Equals(sent.ClientSiteKey) || a.LocationKey.Equals(sent.LocationKey)))
-                         //where a.IsDisposed == false && (sent.InventoryOwner.Equals(a.InventoryOwner) && sent.AssetTag.Equals(a.AssetKey) && sent.ClientSiteKey.Equals(a.ClientSiteKey) && sent.LocationKey.Equals(a.LocationKey))
-                         orderby a.InventoryDate descending
-                         select new AssetDTO()
-                         {
-                             AssetTag = a.AssetKey,
-                             Product = a.ProductKeyNavigation.ProductName,
-                             Manufacturer = a.ManufacturerKeyNavigation.ManufacturerName,
-                             Model = a.ModelKeyNavigation.ModelName,
-                             SerialNumber = a.SerialNumber,
-                             ItemName = a.ItemName,
-                             Location = a.LocationKeyNavigation.LocationName,
-                             ClientSite = a.ClientSiteKeyNavigation.ClientSiteName,
-                             PurchaseDate = a.PurchaseDate,
-                             InventoryOwner = a.InventoryOwner,
-                             InventoriedBy = a.InventoriedBy,
-                             isDisposed = a.IsDisposed
-                         };
-            return result;
+            if (string.IsNullOrEmpty(sent.KeywordSearch))
+            {
+                var result = from a in db.Asset
+                         .Where(a => a.IsDisposed == false && (a.AssetKey.ToString().Contains(sent.AssetTag.ToString()) || a.InventoryOwner.Contains(sent.InventoryOwner)) && (a.ClientSiteKey.Equals(sent.ClientSiteKey) || a.LocationKey.Equals(sent.LocationKey)))
+                             orderby a.AssetKey ascending
+                             select new AssetDTO()
+                             {
+                                 AssetTag = a.AssetKey,
+                                 Product = a.ProductKeyNavigation.ProductName,
+                                 Manufacturer = a.ManufacturerKeyNavigation.ManufacturerName,
+                                 Model = a.ModelKeyNavigation.ModelName,
+                                 SerialNumber = a.SerialNumber,
+                                 ItemName = a.ItemName,
+                                 Location = a.LocationKeyNavigation.LocationName,
+                                 ClientSite = a.ClientSiteKeyNavigation.ClientSiteName,
+                                 PurchaseDate = a.PurchaseDate,
+                                 InventoryOwner = a.InventoryOwner,
+                                 InventoriedBy = a.InventoriedBy,
+                                 isDisposed = a.IsDisposed
+                             };
+                return result;
+            }
+            else
+            {
+                var result = from a in db.Asset
+                         .Where(a => a.IsDisposed == false &&
+                         a.AssetKey.ToString().Contains(sent.KeywordSearch.ToString()) ||
+                         a.InventoriedBy.Contains(sent.KeywordSearch) ||
+                         a.InventoryDate.ToString().Contains(sent.KeywordSearch) ||
+                         a.InventoryOwner.Contains(sent.KeywordSearch) ||
+                         a.ItemName.Contains(sent.KeywordSearch) ||
+                         a.LocationKeyNavigation.LocationName.Contains(sent.KeywordSearch) ||
+                         a.ManufacturerKeyNavigation.ManufacturerName.Contains(sent.KeywordSearch) ||
+                         a.ModelKeyNavigation.ModelName.Contains(sent.KeywordSearch) ||
+                         a.ProductKeyNavigation.ProductName.Contains(sent.KeywordSearch) ||
+                         a.PurchaseDate.ToString().Contains(sent.KeywordSearch) ||
+                         a.SerialNumber.ToString().Contains(sent.KeywordSearch) ||
+                         a.AssetKey.ToString().Contains(sent.AssetTag.ToString()) ||
+                         a.ClientSiteKey.Equals(sent.ClientSiteKey) ||
+                         a.LocationKey.Equals(sent.LocationKey))
+                             orderby a.AssetKey ascending
+                             select new AssetDTO()
+                             {
+                                 AssetTag = a.AssetKey,
+                                 Product = a.ProductKeyNavigation.ProductName,
+                                 Manufacturer = a.ManufacturerKeyNavigation.ManufacturerName,
+                                 Model = a.ModelKeyNavigation.ModelName,
+                                 SerialNumber = a.SerialNumber,
+                                 ItemName = a.ItemName,
+                                 Location = a.LocationKeyNavigation.LocationName,
+                                 ClientSite = a.ClientSiteKeyNavigation.ClientSiteName,
+                                 PurchaseDate = a.PurchaseDate,
+                                 InventoryOwner = a.InventoryOwner,
+                                 InventoriedBy = a.InventoriedBy,
+                                 isDisposed = a.IsDisposed
+                             };
+                return result;
+            }
+
+                
         }
 
         public IEnumerable<AssetDTO> GetAssetDTOsByAssetTag(int assetTag)
@@ -244,7 +284,7 @@ namespace CGI.Asset.Inventory.Service
                          .Where(a =>
                          a.IsDisposed == false 
                          && (a.AssetKey.ToString().Contains(assetDTO.AssetTag.ToString()) || a.InventoryOwner.Contains(assetDTO.InventoryOwner)) && (a.ClientSiteKey.Equals(assetDTO.ClientSiteKey) || a.LocationKey.Equals(assetDTO.LocationKey)))
-                         orderby a.InventoryDate descending
+                         orderby a.AssetKey descending
                          select new AssetDTO()
                          {
                              AssetTag = a.AssetKey,
@@ -284,10 +324,10 @@ namespace CGI.Asset.Inventory.Service
                          a.ProductKeyNavigation.ProductName.Contains(assetDTO.KeywordSearch) ||
                          a.PurchaseDate.ToString().Contains(assetDTO.KeywordSearch) ||
                          a.SerialNumber.ToString().Contains(assetDTO.KeywordSearch) ||
-                         a.AssetKey.Equals(assetDTO.AssetTag) ||
+                         a.AssetKey.ToString().Contains(assetDTO.AssetTag.ToString()) ||
                          a.ClientSiteKey.Equals(assetDTO.ClientSiteKey) || 
                          a.LocationKey.Equals(assetDTO.LocationKey))
-                         orderby a.InventoryDate descending
+                         orderby a.AssetKey descending
                          select new AssetDTO()
                          {
                              AssetTag = a.AssetKey,

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CGI.Asset.Inventory.DataTables;
 using CGI.Asset.Inventory.DTO;
 using CGI.Asset.Inventory.Service;
 using CGI.Asset.Inventory.Web.Models;
@@ -68,6 +69,14 @@ namespace CGI.Asset.Inventory.Web.Controllers
             {
                 return PartialView("_ItemNotFound");
             }
+        }
+
+        [HttpPost]
+        public JsonResult GetResultData(ResultsDataTableSent sent)
+
+        {
+            var model = _service.GetAssetsPaginated(sent);
+            return Json(model);
         }
     }
 }
