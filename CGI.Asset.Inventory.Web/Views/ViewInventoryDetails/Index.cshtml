@@ -7,26 +7,47 @@
 <div class="row">
     @*this is for the search criteria*@
     <div class="col-4">
-        <form id="viewInventoryForm">
-            <div class="d-flex justify-content-end">
+        <form class="form-horizontal" id="viewInventoryForm">
+            <div class="row">
                 <div class="col-form-label ">
                     <label for="keywordSearch">Keyword Search:</label>
-                    <input id="keywordSearch" type="text" asp-for="AssetDTO.KeywordSearch" value="" required/>
+                    <input class="form-control" id="keywordSearch" type="text" asp-for="AssetDTO.KeywordSearch" value="" required />
+                    <div class="invalid-feedback">
+                        invalid Asset Tag
+                    </div>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-end">
-                <partial name="_ItemSearchInput" />
+            <div class="row">
+                <div class="col-form-label ">
+                    <label for="item">Asset Tag:</label>
+                    <input id="assetTag" class="form-control" type="number" asp-for="AssetDTO.AssetTag" placeholder="2134" value="" />
+                    <div class="invalid-feedback">
+                        invalid Asset Tag
+                    </div>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
             </div>
-            <div class="d-flex justify-content-end select-css">
-                <partial name="_LocationSelect" />
+            <div class="row">
+                <div class="col-form-label ">
+                    <label for="Location">Location:</label>
+                    <select id="locationSelect" class="form-control" asp-for="AssetDTO.LocationKey" asp-items="@new SelectList(Model.LocationDTOs, nameof(Model.LocationDTO.LocationKey), nameof(Model.LocationDTO.LocationName))" style="width:180px;"></select>
+                </div>
             </div>
-            <div class="d-flex justify-content-end">
-                <partial name="_ClientSiteSelect" />
+            <div class="row">
+                <div class="col-form-label ">
+                    <label for="clientsite">Client Site:</label>
+                    <select id="clientSiteSelect" class="form-control" asp-for="AssetDTO.ClientSiteKey" asp-items="@new SelectList(Model.ClientSiteDTOs, nameof(Model.ClintSiteDTO.ClientSiteKey), nameof(Model.ClintSiteDTO.ClientSiteName))" style="width:180px"></select>
+                </div>
+
             </div>
+            <button class="btn-primary rounded" id="searchButton" type="button">Search</button>
         </form>
-        <div class="d-flex justify-content-end">
-            <partial name="_SearchButton" />
-        </div>
+        
     </div>
 
     @*this is for the results*@

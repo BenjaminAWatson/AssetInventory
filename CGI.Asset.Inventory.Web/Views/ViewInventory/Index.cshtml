@@ -38,7 +38,7 @@
                     <select id="clientSiteSelect" class="form-control" asp-for="AssetDTO.ClientSiteKey" asp-items="@new SelectList(Model.ClientSiteDTOs, nameof(Model.ClintSiteDTO.ClientSiteKey), nameof(Model.ClintSiteDTO.ClientSiteName))" style="width:180px"></select>
                 </div>
             </div>
-            <button id="searchButtonTest" type="button" >Search</button>
+            <button class="btn-primary rounded" id="searchButtonTest" type="button" >Search</button>
         </form>
     </div>
 </div>
@@ -217,8 +217,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="addItemSubmitButton" type="button">submit</button>
-                    <button data-dismiss="modal">close</button>
+                    <button class="btn-primary rounded" id="addItemSubmitButton" type="button">submit</button>
+                    <button class="btn-danger rounded" data-dismiss="modal">close</button>
                 </div>
             </form>
         </div>

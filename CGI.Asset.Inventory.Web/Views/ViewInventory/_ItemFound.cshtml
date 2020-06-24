@@ -27,19 +27,19 @@
             </thead>
         </table>
     
-<div class="row">
-    <p>
-        @Html.DisplayNameFor(Model => Model.AssetDTO.InventoryDate): 
-    </p>
+<div class="row hidden">
+    @*potentially where inventory date would go*@
 </div>
 <div class="row">
-    <button class="button-spacing"  id="itemFoundSubmitButton">
+    <button class="button-spacing btn-success rounded"  id="itemFoundSubmitButton">
         submit
     </button>
-    <button class="button-spacing" id="modifyButton">
+    <button class="button-spacing btn-primary rounded" id="modifyButton">
         Modify
     </button>
-    <partial name="_CancelButton" />
+    <button class="button-spacing btn-danger rounded" id="cancelButton">
+        Cancel
+    </button>
 </div>
 
 
