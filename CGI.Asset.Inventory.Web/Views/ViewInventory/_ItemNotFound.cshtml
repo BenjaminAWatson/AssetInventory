@@ -4,9 +4,8 @@
 *@
 
     <div class="row">
-        <div class="form-row-padding">
+        <div id="itemNotFoundDiv" class="form-row-padding">
             @*this is where the item not found will go*@
-            item 1234 Not Found
         </div>
         <div>
             <button class="button-spacing" id="addItem" data-target="#addItemModal" data-toggle="modal">
@@ -17,3 +16,10 @@
             <partial name="_CancelButton" />
         </div>
     </div>
+
+<script type="text/javascript">
+    var assetTagValue = $('#assetTag').val();
+    console.log('hi');
+    console.log(assetTagValue);
+    $('#itemNotFoundDiv').text('asset tag ' + assetTagValue + ' not found');
+</script>

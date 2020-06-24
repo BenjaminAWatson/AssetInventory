@@ -25,7 +25,6 @@ $(document).on('click', '#searchButtonTest', function () {
     }
 });
 
-
 $(document).on('click', '#searchButton', function () {
     let viewInventoryForm = $("#viewInventoryForm");
     $.ajax({
