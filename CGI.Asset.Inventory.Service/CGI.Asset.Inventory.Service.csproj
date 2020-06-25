@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CGI.Asset.Inventory.Common\CGI.Asset.Inventory.Common.csproj" />
     <ProjectReference Include="..\CGI.Asset.Inventory.DataTables\CGI.Asset.Inventory.DataTables.csproj" />
     <ProjectReference Include="..\CGI.Asset.Inventory.Data\CGI.Asset.Inventory.Data.csproj" />
     <ProjectReference Include="..\CGI.Asset.Inventory.Domain\CGI.Asset.Inventory.Domain.csproj" />
