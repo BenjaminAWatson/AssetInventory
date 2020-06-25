@@ -34,8 +34,6 @@ namespace CGI.Asset.Inventory.DataTables
             return ordered;
         }
 
-        //im about to change IorderedEnumerable to Ienumerable and alter both classes to only use the already sorted list i have
-
         public static IEnumerable<T> GetPaged<T>(IOrderedEnumerable<T> list, DataTableSent sent)
         {
             return list.Skip(sent.start).Take(sent.length);

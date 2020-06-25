@@ -139,9 +139,7 @@ namespace CGI.Asset.Inventory.Service
                                  isDisposed = a.IsDisposed
                              };
                 return result;
-            }
-
-                
+            } 
         }
 
         public IEnumerable<AssetDTO> GetAssetDTOsByAssetTag(int assetTag)

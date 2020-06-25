@@ -2,7 +2,6 @@
 
 
 $(document).on('click', '#submitButton', function () {
-    console.log('you hit the submit button');
     let takeInventoryForm = $("#takeInventoryForm");
     $.ajax({
         url: 'https://localhost:44388/viewInventory/submit',
@@ -147,7 +146,6 @@ function validateSearchForm() {
 };
 
 function validateModals(form) {
-    console.log(form);
     var assetTag = document.forms[form]['assetTagModalInput'];
     var serialNumber = document.forms[form]['serialNumberModalInput'];
     var itemName = document.forms[form]['itemNameModalInput'];
@@ -157,7 +155,6 @@ function validateModals(form) {
     var inventoryDate = document.forms[form]['inventoriedDateModalInput'];
 
     let fields = [assetTag, serialNumber, itemName, purchaseDate, inventoryOwner, inventoriedBy, inventoryDate];
-    console.log(assetTag.value);
     fields.forEach(element => {
         if (element.value == '') {
             element.classList.add('is-invalid');
