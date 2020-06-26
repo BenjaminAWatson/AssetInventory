@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using CGI.Asset.Inventory.DataTables;
-using CGI.Asset.Inventory.Domain;
 using CGI.Asset.Inventory.DTO;
 using CGI.Asset.Inventory.Service;
 using CGI.Asset.Inventory.Web.Models;
@@ -24,7 +20,6 @@ namespace CGI.Asset.Inventory.Web.Controllers
             _authService = authService;
             _user = httpContextAccessor.HttpContext.User.Identity.Name.Remove(0, 4);
         }
-
         public ActionResult Index()
         {
             var user = _user;
