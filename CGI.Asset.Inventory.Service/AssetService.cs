@@ -373,5 +373,10 @@ namespace CGI.Asset.Inventory.Service
             }
             return count;
         }
+
+        public string GetRole(string user)
+        {
+            return null;
+        }
     }
 }

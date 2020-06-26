@@ -15,22 +15,24 @@ namespace CGI.Asset.Inventory.Web.Controllers
     public class ViewInventoryController : Controller
     {
         private readonly AssetService _service;
+        private readonly string _user;
 
-        public ViewInventoryController(AssetService service)
+        public ViewInventoryController(AssetService service, IHttpContextAccessor httpContextAccessor)
         {
             _service = service;
+            _user = httpContextAccessor.HttpContext.User.Identity.Name.Remove(0, 4);
         }
-        // GET: ViewInventory
+
         public ActionResult Index()
         {
-            //var assetDTOs = _service.GetAssetDTOs();
+            var user = _user;
             var clientSiteDTO = _service.CreateClientSiteDTOs();
             var locationDTO = _service.CreateLocationDTOs();
             var assetDTO = _service.CreateAssetDTO();
             var productDTO = _service.CreateProductDTOs();
             var manufacturerDTO = _service.CreateManufacturerDTOs();
             var modelDTO = _service.CreateModelDTOs();
-            AssetViewModel model = new AssetViewModel(/*assetDTOs,*/ clientSiteDTO, locationDTO, assetDTO,productDTO,manufacturerDTO,modelDTO);
+            AssetViewModel model = new AssetViewModel(clientSiteDTO, locationDTO, assetDTO,productDTO,manufacturerDTO,modelDTO);
             return View(model);
         }
 
@@ -64,7 +66,7 @@ namespace CGI.Asset.Inventory.Web.Controllers
             var productDTO = _service.CreateProductDTOs();
             var manufacturerDTO = _service.CreateManufacturerDTOs();
             var modelDTO = _service.CreateModelDTOs();
-            AssetViewModel model = new AssetViewModel(/*assetDTOs,*/ clientSiteDTO, locationDTO, asset, productDTO, manufacturerDTO, modelDTO);
+            AssetViewModel model = new AssetViewModel(clientSiteDTO, locationDTO, asset, productDTO, manufacturerDTO, modelDTO);
             return PartialView("_ModifyAssetModal", model);
         }
 

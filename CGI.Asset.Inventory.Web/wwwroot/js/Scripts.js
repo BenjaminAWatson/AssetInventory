@@ -1,5 +1,5 @@
 ﻿var takeInventoryUrl = 'https://localhost:44388/';
-
+var viewInventoryUrl = 'https://localhost:44388/ViewInventoryDetails#';
 
 $(document).on('click', '#submitButton', function () {
     let takeInventoryForm = $("#takeInventoryForm");

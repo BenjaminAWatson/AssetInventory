@@ -41,6 +41,8 @@ namespace CGI.Asset.Inventory.Web
                 options.UseSqlServer(Configuration.GetConnectionString("CGIAssetInventoryContext"));
             });
 
+            services.AddHttpContextAccessor();
+
             services.AddTransient<AssetService>();
         }
 
