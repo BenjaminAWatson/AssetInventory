@@ -15,25 +15,40 @@ namespace CGI.Asset.Inventory.Web.Controllers
     public class ViewInventoryController : Controller
     {
         private readonly AssetService _service;
+        private readonly AuthenticationService _authService;
         private readonly string _user;
 
-        public ViewInventoryController(AssetService service, IHttpContextAccessor httpContextAccessor)
+        public ViewInventoryController(AssetService service, AuthenticationService authService ,IHttpContextAccessor httpContextAccessor)
         {
             _service = service;
+            _authService = authService;
             _user = httpContextAccessor.HttpContext.User.Identity.Name.Remove(0, 4);
         }
 
         public ActionResult Index()
         {
             var user = _user;
-            var clientSiteDTO = _service.CreateClientSiteDTOs();
-            var locationDTO = _service.CreateLocationDTOs();
-            var assetDTO = _service.CreateAssetDTO();
-            var productDTO = _service.CreateProductDTOs();
-            var manufacturerDTO = _service.CreateManufacturerDTOs();
-            var modelDTO = _service.CreateModelDTOs();
-            AssetViewModel model = new AssetViewModel(clientSiteDTO, locationDTO, assetDTO,productDTO,manufacturerDTO,modelDTO);
-            return View(model);
+            var isUserValid = _authService.IsUserValid(user);
+            var authroizationLevelRequired = 1;
+            if (isUserValid)
+            {
+                var isUserAuthorized = _authService.isUserAuthorized(user, authroizationLevelRequired);
+                if (isUserAuthorized)
+                {
+                    var clientSiteDTO = _service.CreateClientSiteDTOs();
+                    var locationDTO = _service.CreateLocationDTOs();
+                    var assetDTO = _service.CreateAssetDTO();
+                    var productDTO = _service.CreateProductDTOs();
+                    var manufacturerDTO = _service.CreateManufacturerDTOs();
+                    var modelDTO = _service.CreateModelDTOs();
+                    AssetViewModel model = new AssetViewModel(clientSiteDTO, locationDTO, assetDTO, productDTO, manufacturerDTO, modelDTO);
+                    return View(model);
+                }
+                else
+                    return RedirectToAction("Index", "UnauthorizedAccess");
+            }
+            else
+                return RedirectToAction("Index","UnauthorizedAccess");
         }
 
         [HttpPost]
@@ -89,6 +104,7 @@ namespace CGI.Asset.Inventory.Web.Controllers
                 return PartialView("_ItemNotFound");
             }
         }
+
         [HttpPost]
         public JsonResult GetResultData(ResultsDataTableSent sent)
         

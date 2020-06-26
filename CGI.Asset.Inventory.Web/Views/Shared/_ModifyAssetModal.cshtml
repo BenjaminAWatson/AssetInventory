@@ -175,9 +175,7 @@
 }
 <script type="text/javascript">
     var controllerName = '@ViewContext.RouteData.Values["Controller"].ToString()';
-    
     var currentURL = window.location.href;
-
     $('#modifyItemModal').on('show.bs.modal', function () {
         if (currentURL === viewInventoryUrl) {
             $('#modifyAssetForm :input').attr('readonly', 'readonly');

@@ -22,5 +22,7 @@ namespace CGI.Asset.Inventory.Data
         public virtual DbSet<Manufacturer> Manufacturer { get; set; }
         public virtual DbSet<Model> Model { get; set; }
         public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }

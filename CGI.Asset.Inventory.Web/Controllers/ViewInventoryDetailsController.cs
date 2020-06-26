@@ -15,24 +15,42 @@ namespace CGI.Asset.Inventory.Web.Controllers
     public class ViewInventoryDetailsController : Controller
     {
         private readonly AssetService _service;
+        private readonly AuthenticationService _authService;
+        private readonly string _user;
 
-        public ViewInventoryDetailsController(AssetService service)
+        public ViewInventoryDetailsController(AssetService service, AuthenticationService authService, IHttpContextAccessor httpContextAccessor)
         {
             _service = service;
+            _authService = authService;
+            _user = httpContextAccessor.HttpContext.User.Identity.Name.Remove(0, 4);
         }
 
         // GET: ViewInventoryDetails
         public ActionResult Index()
         {
-            //var assetDTOs = _service.GetAssetDTOs();
-            var clientSiteDTO = _service.CreateClientSiteDTOs();
-            var locationDTO = _service.CreateLocationDTOs();
-            var assetDTO = _service.CreateAssetDTO();
-            var productDTO = _service.CreateProductDTOs();
-            var manufacturerDTO = _service.CreateManufacturerDTOs();
-            var modelDTO = _service.CreateModelDTOs();
-            AssetViewModel model = new AssetViewModel(/*assetDTOs,*/ clientSiteDTO, locationDTO, assetDTO, productDTO, manufacturerDTO, modelDTO);
-            return View(model);
+            var user = _user;
+            var isUserValid = _authService.IsUserValid(user);
+            var authroizationLevelRequired = 2;
+            if (isUserValid)
+            {
+                var isUserAuthorized = _authService.isUserAuthorized(user, authroizationLevelRequired);
+                if (isUserAuthorized)
+                {
+                    var clientSiteDTO = _service.CreateClientSiteDTOs();
+                    var locationDTO = _service.CreateLocationDTOs();
+                    var assetDTO = _service.CreateAssetDTO();
+                    var productDTO = _service.CreateProductDTOs();
+                    var manufacturerDTO = _service.CreateManufacturerDTOs();
+                    var modelDTO = _service.CreateModelDTOs();
+                    AssetViewModel model = new AssetViewModel(clientSiteDTO, locationDTO, assetDTO, productDTO, manufacturerDTO, modelDTO);
+                    return View(model);
+                }
+                else
+                    return RedirectToAction("Index", "UnauthorizedAccess");
+            }
+            else
+                return RedirectToAction("Index", "UnauthorizedAccess");
+
         }
 
         [HttpPost]
@@ -44,7 +62,7 @@ namespace CGI.Asset.Inventory.Web.Controllers
             var productDTO = _service.CreateProductDTOs();
             var manufacturerDTO = _service.CreateManufacturerDTOs();
             var modelDTO = _service.CreateModelDTOs();
-            AssetViewModel model = new AssetViewModel(/*assetDTOs,*/ clientSiteDTO, locationDTO, asset, productDTO, manufacturerDTO, modelDTO);
+            AssetViewModel model = new AssetViewModel(clientSiteDTO, locationDTO, asset, productDTO, manufacturerDTO, modelDTO);
             return PartialView("_ModifyAssetModal",model);
         }
 
