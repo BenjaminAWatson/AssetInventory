@@ -154,7 +154,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="is Disposed">Is Disposed:</label>
+                            <label id="isDisposedLabel" for="is Disposed">Is Disposed:</label>
                         </div>
                         <div class="col">
                             <input class="form-control" id="isDisposedModalInput" type="checkbox" asp-for="AssetDTO.isDisposed" />
@@ -182,6 +182,8 @@
         if (currentURL === viewInventoryUrl) {
             $('#modifyAssetForm :input').attr('readonly', 'readonly');
             $('#submitModifyModalButton').hide();
+            $('#isDisposedLabel').hide();
+            $('#isDisposedModalInput').hide();
         }
     });
 
