@@ -30,7 +30,7 @@ namespace CGI.Asset.Inventory.Web.Controllers
         {
             var user = _user;
             var isUserValid = _authService.IsUserValid(user);
-            var authroizationLevelRequired = 2;
+            var authroizationLevelRequired = 1;
             if (isUserValid)
             {
                 var isUserAuthorized = _authService.isUserAuthorized(user, authroizationLevelRequired);
