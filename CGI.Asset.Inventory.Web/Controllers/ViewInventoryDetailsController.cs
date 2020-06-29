@@ -78,7 +78,7 @@ namespace CGI.Asset.Inventory.Web.Controllers
         [HttpPost]
         public ActionResult SearchInventoryDetails(AssetDTO assetDTO)
         {
-            var wasInventoryFound = _service.SearchInventory(assetDTO);
+            var wasInventoryFound = _service.SearchInventoryDetails(assetDTO);
             if (wasInventoryFound.Equals(true))
             {
                 return PartialView("_SearchResults");
