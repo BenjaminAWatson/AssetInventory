@@ -1,31 +1,29 @@
 ﻿@model AssetViewModel
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-        <table id="results" class="display" width="100%">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(Model => Model.AssetDTO.AssetTag)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(Model => Model.AssetDTO.Product)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(Model => Model.AssetDTO.Manufacturer)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(Model => Model.AssetDTO.Model)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(Model => Model.AssetDTO.SerialNumber)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(Model => Model.AssetDTO.ItemName)
-                    </th>
-                </tr>
-            </thead>
-        </table>
+
+<table id="results" class="display" width="100%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(Model => Model.AssetDTO.AssetTag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.AssetDTO.Product)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.AssetDTO.Manufacturer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.AssetDTO.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.AssetDTO.SerialNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.AssetDTO.ItemName)
+            </th>
+        </tr>
+    </thead>
+</table>
     
 <div class="row hidden">
     @*potentially where inventory date would go*@
@@ -42,51 +40,50 @@
     </button>
 </div>
 
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var assetTag = $('#assetTag').val();
-            var inventoryOwner = $('#inventoryOwner').val();
-            var locationKey = $('#locationSelect').val();
-            var clientSiteKey = $('#clientSiteSelect').val();
-            var table = $('#results').DataTable({
-                "serverside": true,
-                "processing": true,
-                "info": false,
-                "lengthMenu": false,
-                "lengthChange": false,
-                "pageLength": 25,
-                "order": [],
-                "dom": 't<"bottom"p>',
-                "searching": false,
-                "ajax": {
-                    url: "@Url.Action("GetResultData", "ViewInventory")",
-                    type: "POST",
-                    data: function (d) {
-                        d.assetTag = assetTag;
-                        d.inventoryOwner = inventoryOwner;
-                        d.locationKey = locationKey;
-                        d.clientSiteKey = clientSiteKey;
-                    }
-                },
-                "columns": [
-                    { "data": "assetTag", "name": "@(nameof(CGI.Asset.Inventory.DTO.AssetDTO.AssetTag))"},
-                    { "data": "product", "name": "@(nameof(CGI.Asset.Inventory.DTO.AssetDTO.Product))" },
-                    { "data": "manufacturer", "name": "@(nameof(CGI.Asset.Inventory.DTO.AssetDTO.Manufacturer))" },
-                    { "data": "model", "name": "@(nameof(CGI.Asset.Inventory.DTO.AssetDTO.Model))" },
-                    { "data": "serialNumber", "name": "@(nameof(CGI.Asset.Inventory.DTO.AssetDTO.SerialNumber))" },
-                    { "data": "itemName", "name": "@(nameof(CGI.Asset.Inventory.DTO.AssetDTO.ItemName))"}
-                ]
-            });
-            $('#results tbody').on('click', 'tr', function () {
-                var data = table.row(this).data();
-                if ( $(this).hasClass('selected') ) {
-                    $(this).removeClass('selected');
+<script type="text/javascript">
+    $(document).ready(function () {
+        var assetTag = $('#assetTag').val();
+        var inventoryOwner = $('#inventoryOwner').val();
+        var locationKey = $('#locationSelect').val();
+        var clientSiteKey = $('#clientSiteSelect').val();
+        var table = $('#results').DataTable({
+            "serverside": true,
+            "processing": true,
+            "info": false,
+            "lengthMenu": false,
+            "lengthChange": false,
+            "pageLength": 25,
+            "order": [],
+            "dom": 't<"bottom"p>',
+            "searching": false,
+            "ajax": {
+                url: "@Url.Action("GetResultData", "ViewInventory")",
+                type: "POST",
+                data: function (d) {
+                    d.assetTag = assetTag;
+                    d.inventoryOwner = inventoryOwner;
+                    d.locationKey = locationKey;
+                    d.clientSiteKey = clientSiteKey;
                 }
-                else {
-                    table.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
-            });
+            },
+            "columns": [
+                { "data": "assetTag", "name": "@(nameof(CGI.Asset.Inventory.DTO.AssetDTO.AssetTag))"},
+                { "data": "product", "name": "@(nameof(CGI.Asset.Inventory.DTO.AssetDTO.Product))" },
+                { "data": "manufacturer", "name": "@(nameof(CGI.Asset.Inventory.DTO.AssetDTO.Manufacturer))" },
+                { "data": "model", "name": "@(nameof(CGI.Asset.Inventory.DTO.AssetDTO.Model))" },
+                { "data": "serialNumber", "name": "@(nameof(CGI.Asset.Inventory.DTO.AssetDTO.SerialNumber))" },
+                { "data": "itemName", "name": "@(nameof(CGI.Asset.Inventory.DTO.AssetDTO.ItemName))"}
+            ]
         });
-    </script>
+        $('#results tbody').on('click', 'tr', function () {
+            var data = table.row(this).data();
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+    });
+</script>

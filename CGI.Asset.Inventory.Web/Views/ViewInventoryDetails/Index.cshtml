@@ -1,4 +1,5 @@
 ﻿@model AssetViewModel
+
 @{
     ViewData["Title"] = "View Inventory";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -47,7 +48,6 @@
             <button class="btn-primary rounded" id="searchButton" type="button">Search</button>
             <button class="btn-danger rounded" id="cancelButton" type="button">Close</button>
         </form>
-        
     </div>
 
     @*this is for the results*@
@@ -58,8 +58,8 @@
     </div>
 </div>
 <div id="renderModifyAssetModalDiv">
-</div>
 
+</div>
 
 @section Scripts {
     <script src="~/js/Scripts.js"></script>

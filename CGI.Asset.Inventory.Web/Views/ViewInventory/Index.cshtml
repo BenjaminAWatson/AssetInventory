@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Take Inventory";
 }
+
 <div class="row">
     <div class="form-group row " style="display:inline-block">
         <form id="takeInventoryForm" name="takeInventoryForm" class="needs-validation" novalidate>
@@ -16,7 +17,6 @@
                         Looks Good!
                     </div>
                 </div>
-
                 <div class="col-form-label form-row-padding">
                     <label for="Inventory Owner">Inventory Owner:</label>
                     <input id="inventoryOwner" class="form-control" type="text" asp-for="AssetDTO.InventoryOwner" placeholder="Arthur Dent" value="" />
@@ -27,12 +27,10 @@
                         Looks Good!
                     </div>
                 </div>
-
                 <div class="col-form-label form-row-padding">
                     <label for="Location">Location:</label>
                     <select id="locationSelect" class="form-control" asp-for="AssetDTO.LocationKey" asp-items="@new SelectList(Model.LocationDTOs, nameof(Model.LocationDTO.LocationKey), nameof(Model.LocationDTO.LocationName))" style="width:180px;"></select>
                 </div>
-
                 <div class="col-form-label form-row-padding">
                     <label for="clientsite">Client Site:</label>
                     <select id="clientSiteSelect" class="form-control" asp-for="AssetDTO.ClientSiteKey" asp-items="@new SelectList(Model.ClientSiteDTOs, nameof(Model.ClintSiteDTO.ClientSiteKey), nameof(Model.ClintSiteDTO.ClientSiteName))" style="width:180px"></select>
@@ -49,10 +47,6 @@
 </div>
 
 <div id="renderModifyAssetModalDiv">
-</div>
-
-<div id="renderMessageModalDiv">
-
 </div>
 
 <div class="modal" id="addItemModal" role="dialog">
@@ -225,10 +219,7 @@
     </div>
 </div>
 
-
 @section Scripts {
     <script src="~/js/Scripts.js"></script>
-    <script type="text/javascript">
-    </script>
 }
 

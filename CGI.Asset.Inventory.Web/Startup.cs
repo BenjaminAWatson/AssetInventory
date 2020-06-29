@@ -42,7 +42,6 @@ namespace CGI.Asset.Inventory.Web
             });
 
             services.AddHttpContextAccessor();
-
             services.AddTransient<AssetService>();
             services.AddTransient<AuthenticationService>();
         }
